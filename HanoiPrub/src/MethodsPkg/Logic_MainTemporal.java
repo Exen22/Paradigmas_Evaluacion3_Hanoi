@@ -6,14 +6,14 @@ import javax.swing.JOptionPane;
  *
  * @author Willian Coral
  */
-public class Logic {
+public class Logic_MainTemporal {
     
     public static void main(String[] args){
         
         boolean exit = false;
-        int discs = 3;
-        String list1, list2, list3, fList;
-        
+        int discs = 4; //NUMERO DE DISCOS
+        String[] list = new String[3]; //donde se van a guardar los datos de cada pila por separado
+        String fList; //lista donde se van a guardar los datos de las 3 pilas 
         
         /*HStack stack1 = new HStack();
         HStack stack2 = new HStack();
@@ -33,43 +33,29 @@ public class Logic {
         
         //BUCLE PRINCIPAL
         do{
-            list1 = "-\n"; list2 = "-\n"; list3= "-\n";
             
-            //1
-            if("".equals(stack[0].getContent())){
-                list1 = refill(discs, list2);
+            //MOSTRAR CON JOptionPane
+            fList = "";
+            for(int i = 0; i < 3; i++){
+                list[i] = "-\n";
             }
-            else{
-                list1 += stack[0].getContent();
+            
+            for(int i = 0; i < 3; i++){
+                if("".equals(stack[i].getContent())){
+                    list[i] = refill(discs, list[i]);
+                }
+                else{
+                    list[i] += stack[i].getContent();
+                }
+                fList += list[i]+"\n";
             }
-
-            //2
-            if("".equals(stack[1].getContent())){
-                list2 = refill(discs, list2);
-            }
-            else{
-                list2 += stack[1].getContent();
-            }
-
-            //3
-            if("".equals(stack[2].getContent())){
-                list3 = refill(discs, list3);
-            }
-            else{
-                list3 += stack[2].getContent();
-            }
-            fList = list1 + "\n" + list2 + "\n" + list3;
-
-            /*JOptionPane.showMessageDialog(null, list1);
-            JOptionPane.showMessageDialog(null, list2);
-            JOptionPane.showMessageDialog(null, list3);
-            */
-
-            //JOptionPane.showMessageDialog(null, fList);
+            
+            //terminar de mostrar y pedir los datos para el proceso
             int aux1, aux2;
             aux1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
             aux2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
             
+            //PROCESO
             if (aux1<1 || aux1>3 || aux2<1 || aux2>3){
                 JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
             }
@@ -85,7 +71,7 @@ public class Logic {
                     }
                     //Verificar tamaño del disco de aux1 y que sea menor que el de aux2
                     else{
-                        if((int)stack[aux1-1].peek() < (int)stack[aux2-1].peek()){ //MOSCA
+                        if((int)stack[aux1-1].peek() < (int)stack[aux2-1].peek()){
                             stack[aux2-1].push(stack[aux1-1].pop());
                         }
                         else{

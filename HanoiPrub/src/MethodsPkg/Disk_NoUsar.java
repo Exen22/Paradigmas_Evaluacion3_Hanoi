@@ -4,11 +4,11 @@ package MethodsPkg;
  *
  * @author Willian Coral
  */
-public class Disk {
+public class Disk_NoUsar {
     private static int count, aux = 0;
     private int value;
     
-    public Disk(int numOfDiscs){
+    public Disk_NoUsar(int numOfDiscs){
         count = numOfDiscs;
         
         this.value = numOfDiscs - aux;
