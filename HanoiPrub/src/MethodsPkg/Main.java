@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MethodsPkg;
 
 /**
@@ -10,6 +5,10 @@ package MethodsPkg;
  * @author Willian Coral
  */
 public class Main {
-    
+    public static void main(String[] args){
+        HanoiLoop nLoop = new HanoiLoop();
+        
+        nLoop.game();
+    }
     
 }
