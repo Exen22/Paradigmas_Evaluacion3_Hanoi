@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  */
 public class HanoiLoop {
     private boolean exit;
-    private int discs; //NUMERO DE DISCOS
+    private int discs, t1, t2; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
     private HStack[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
     private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
@@ -26,7 +26,7 @@ public class HanoiLoop {
     
     //BUCLE PRINCIPAL DEL JUEGO
     public void game(){
-        int aux1, aux2;
+        
         
         //ESTABLECER CANTIDAD DE DISCOS
         setDiscs();
@@ -43,27 +43,26 @@ public class HanoiLoop {
             frame();
             
             //PEDIR DATOS PARA EL PROCESO Y A LA VEZ MOSTRAR CON EL JOptionPane LOS FRAMES (fList)
-            aux1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
-            aux2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
+            setTowers();
             
             //PROCESO
-            if (aux1<1 || aux1>3 || aux2<1 || aux2>3){
+            if (t1<1 || t1>3 || t2<1 || t2>3){
                 JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
             }
             else{
                 //Verificar que hay discos disponibles para mover desde aux1
-                if(stack[aux1-1].isEmpty()){
+                if(stack[t1-1].isEmpty()){
                     JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
                 }
                 else{
                     //Verificar si aux2 está vacio, si lo está entonces se mueve el disco
-                    if(stack[aux2-1].isEmpty()){
-                        stack[aux2-1].push(stack[aux1-1].pop());
+                    if(stack[t2-1].isEmpty()){
+                        stack[t2-1].push(stack[t1-1].pop());
                     }
                     //Verificar tamaño del disco de aux1 y que sea menor que el de aux2
                     else{
-                        if((int)stack[aux1-1].peek() < (int)stack[aux2-1].peek()){
-                            stack[aux2-1].push(stack[aux1-1].pop());
+                        if((int)stack[t1-1].peek() < (int)stack[t2-1].peek()){
+                            stack[t2-1].push(stack[t1-1].pop());
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
@@ -74,6 +73,8 @@ public class HanoiLoop {
             
             //condicion de salida 3era pila llena
             if(stack[2].getSize() == discs){
+                frame();
+                JOptionPane.showMessageDialog(null, fList + "\n\n HAS GANADO, FELICITACIONES");
                 exit=true;
             }
             
@@ -100,7 +101,74 @@ public class HanoiLoop {
     
     //Establecer numero de discos
     public void setDiscs(){
-        discs = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: "));
+        boolean flag = true;
+        
+        while(flag == true){
+            
+            try{
+                String aux;
+                aux = JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: ");
+                
+                if(aux == null){
+                    throw new NullPointerException();
+                }
+                
+                discs = Integer.parseInt(aux);
+                //discs = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: "));
+                flag = false;
+            }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
+            }
+            catch(NullPointerException e){
+                
+                int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                    if (opc==JOptionPane.YES_OPTION){
+                        System.exit(0);
+                    }
+                    
+            }
+        }
+        
+    }
+    
+    //Establecer las torres de donde se van a mover los discos
+    private void setTowers(){
+        boolean flag = true;
+            
+            while(flag == true){
+                try{
+                    String aux;
+                    /*T1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
+                    T2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
+                    */
+                    aux = JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: ");
+                    if(aux == null){
+                        throw new NullPointerException();
+                    }
+                    t1 = Integer.parseInt(aux);
+                    
+                    aux = JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: ");
+                    if(aux == null){
+                        throw new NullPointerException();
+                    }
+                    t2 = Integer.parseInt(aux);
+                    
+                    flag = false;
+                }
+                catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
+                }
+                catch(NullPointerException e){
+                    int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                    if (opc==JOptionPane.YES_OPTION){
+                        System.exit(0);
+                    }
+                }
+            }
+        
     }
     
     //Metodo para llenar una list[] con guiones ("-") si está vacia
