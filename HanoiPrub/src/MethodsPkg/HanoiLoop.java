@@ -1,6 +1,10 @@
 package MethodsPkg;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.JTextArea;
+
 
 /**
  *
@@ -11,7 +15,10 @@ public class HanoiLoop {
     private int discs, t1, t2; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
     private HStack[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
-    private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
+    //private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
+    private JPanel fList = new JPanel();
+    //JTextArea[] textArea;
+    
     
         
     public HanoiLoop(){
@@ -19,8 +26,10 @@ public class HanoiLoop {
         this.exit = false;
         this.stack = new HStack[3];
         
+        
         for(int i=0; i<3; i++){
             stack[i] = new HStack();
+            //textArea[i] = new JTextArea();
         }
     }
     
@@ -74,7 +83,7 @@ public class HanoiLoop {
             //condicion de salida 3era pila llena
             if(stack[2].getSize() == discs){
                 frame();
-                JOptionPane.showMessageDialog(null, fList + "\n\n HAS GANADO, FELICITACIONES");
+                JOptionPane.showMessageDialog(null, fList, "\n\n HAS GANADO, FELICITACIONES", JOptionPane.INFORMATION_MESSAGE);
                 exit=true;
             }
             
@@ -83,20 +92,33 @@ public class HanoiLoop {
     
     //Guardar en fList los datos de cada pila para posteriormente mostrarlo por pantalla
     private void frame(){
-        fList = "";
-            for(int i = 0; i < 3; i++){
-                list[i] = "-\n";
+        fList.removeAll();
+        fList.setLayout(new BoxLayout(fList, BoxLayout.X_AXIS));
+        
+        
+        for(int i = 0; i < 3; i++){    
+            list[i] = "-\n";
+        }
+
+        for(int i = 0; i < 3; i++){
+            //si la pila está vacia llenarla de guiones
+            if("".equals(stack[i].getContent())){
+                list[i] = refill(discs, list[i]);
             }
-            
-            for(int i = 0; i < 3; i++){
-                if("".equals(stack[i].getContent())){
-                    list[i] = refill(discs, list[i]);
+            else{
+                //PONER LOS GUIONES "-" A LAS PILAS 
+                for(int j = stack[i].getSize(); j<discs; j++){
+                    list[i] += "-\n";
                 }
-                else{
-                    list[i] += stack[i].getContent();
-                }
-                fList += list[i]+"\n";
+                //añadirle el contenido de la pila
+                list[i] += stack[i].getContent();
+                
+                
             }
+            JTextArea textArea = new JTextArea(list[i]);
+            fList.add(textArea);
+
+        }
     }
     
     //Establecer numero de discos
@@ -143,13 +165,13 @@ public class HanoiLoop {
                     /*T1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
                     T2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
                     */
-                    aux = JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: ");
+                    aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Mover desde la torre: ", JOptionPane.INFORMATION_MESSAGE);
                     if(aux == null){
                         throw new NullPointerException();
                     }
                     t1 = Integer.parseInt(aux);
                     
-                    aux = JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: ");
+                    aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Hasta la torre: ", JOptionPane.INFORMATION_MESSAGE);
                     if(aux == null){
                         throw new NullPointerException();
                     }
