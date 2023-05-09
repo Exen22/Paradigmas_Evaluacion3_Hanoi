@@ -12,7 +12,7 @@ public class Main {
         boolean exit = false;
         do{
             HanoiLoop nLoop = new HanoiLoop();
-            nLoop.game();
+            nLoop.game(); 
             
             //Opcion para repetir el juego
             int opc =JOptionPane.showConfirmDialog(null,"Quiere volver a jugar?", "Confirmacion", JOptionPane.YES_NO_OPTION);

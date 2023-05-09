@@ -122,22 +122,29 @@ public class HanoiLoop {
     }
     
     //Establecer numero de discos
-    public void setDiscs(){
+    private void setDiscs(){
         boolean flag = true;
         
         while(flag == true){
             
             try{
-                String aux;
-                aux = JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: ");
                 
-                if(aux == null){
-                    throw new NullPointerException();
-                }
+                String aux;   
+                //ingresar cantidad de discos y verificar que no sean menores a 1 ni mayores a 8
+                do{
+                
+                    aux = JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: ");
+
+
+
+                    if(aux == null){
+                        throw new NullPointerException();
+                    }
+                }while(Integer.parseInt(aux) > 8 || Integer.parseInt(aux) < 1);
                 
                 discs = Integer.parseInt(aux);
-                //discs = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: "));
                 flag = false;
+                
             }
             catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
