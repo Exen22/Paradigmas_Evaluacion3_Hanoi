@@ -146,9 +146,9 @@ public class HanoiLoop {
                 
                 int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
 
-                    if (opc==JOptionPane.YES_OPTION){
-                        System.exit(0);
-                    }
+                if (opc==JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
                     
             }
         }
