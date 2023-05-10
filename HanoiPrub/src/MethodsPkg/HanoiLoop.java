@@ -174,6 +174,8 @@ public class HanoiLoop {
         boolean flag = true;
             
             while(flag == true){
+                
+                //TORRE 1
                 try{
                     String aux;
                     
@@ -192,8 +194,30 @@ public class HanoiLoop {
                         throw new NullPointerException();
                     }
                     
+                    flag = false;
+                    moves++;
+                }
+                catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
+                }
+                catch(NullPointerException e){
+                    int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
                     
-                    
+                    if (opc==JOptionPane.YES_OPTION){
+                        System.exit(0);
+                    }
+                    else{
+                        flag = true;
+                        continue;
+                    }
+                }
+                
+            }
+            
+            //TORRE 2
+            flag = true;
+            while(flag == true){
+                try{
                     t2 = 1 + JOptionPane.showOptionDialog(dialog,
                         fList,
                         "Mover Hasta la torre:",
@@ -208,9 +232,7 @@ public class HanoiLoop {
                         throw new NullPointerException();
                     }
                     
-                    
                     flag = false;
-                    moves++;
                 }
                 catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
