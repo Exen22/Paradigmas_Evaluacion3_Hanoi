@@ -21,6 +21,7 @@ public class Main {
                 exit = true;
             }
         }while(exit != true);
+        System.exit(0);
         
     }
     
