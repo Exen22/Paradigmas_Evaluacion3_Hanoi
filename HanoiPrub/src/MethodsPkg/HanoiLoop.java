@@ -12,12 +12,12 @@ import javax.swing.JTextArea;
  */
 public class HanoiLoop {
     private boolean exit;
-    private int discs, t1, t2, moves; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
+    private int discs, t1, t2, moves=0; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
     private HStack[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
     //private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
     private JPanel fList = new JPanel();
-    
+    private Object[] options = {"Torre 1", "Torre 2", "Torre 3"};
     
     
     //CONSTRUCTOR    
@@ -25,7 +25,7 @@ public class HanoiLoop {
         this.list = new String[3];
         this.exit = false;
         this.stack = new HStack[3];
-        this.moves = 0;
+        //this.moves = 0;
         
         for(int i=0; i<3; i++){
             stack[i] = new HStack();
@@ -57,11 +57,13 @@ public class HanoiLoop {
             //PROCESO
             if (t1<1 || t1>3 || t2<1 || t2>3){
                 JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
+                moves--;
             }
             else{
                 //Verificar que hay discos disponibles para mover desde aux1
                 if(stack[t1-1].isEmpty()){
                     JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
+                    moves--;
                 }
                 else{
                     //Verificar si aux2 está vacio, si lo está entonces se mueve el disco
@@ -75,6 +77,7 @@ public class HanoiLoop {
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
+                            moves--;
                         }
                     }
                 }
@@ -173,33 +176,55 @@ public class HanoiLoop {
                     /*T1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
                     T2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
                     */
-                    aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Mover desde la torre: ", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    /*aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Mover desde la torre: ", JOptionPane.INFORMATION_MESSAGE);
                     if(aux == null){
                         throw new NullPointerException();
                     }
                     t1 = Integer.parseInt(aux);
+                    */
+                    t1 = 1 + JOptionPane.showOptionDialog(null,
+                        fList,
+                        "Mover desde la torre:",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
                     
-                    aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Hasta la torre: ", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    /*aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Hasta la torre: ", JOptionPane.INFORMATION_MESSAGE);
                     if(aux == null){
                         throw new NullPointerException();
                     }
                     t2 = Integer.parseInt(aux);
+                    */
                     
-                    moves++;
+                    t2 = 1 + JOptionPane.showOptionDialog(null,
+                        fList,
+                        "Mover Hasta la torre:",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                    
                     flag = false;
+                    moves++;
                 }
                 catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
                 }
                 catch(NullPointerException e){
                     int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
+                    
                     if (opc==JOptionPane.YES_OPTION){
                         System.exit(0);
                     }
                 }
+                
             }
-        
+            
     }
     
     //Metodo para llenar una list[] con guiones ("-") si está vacia
