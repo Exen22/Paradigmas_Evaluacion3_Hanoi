@@ -3,6 +3,7 @@ package MethodsPkg;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
 
 
@@ -17,6 +18,8 @@ public class HanoiLoop {
     private String[] list; //donde se van a guardar los datos de cada pila por separado
     //private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
     private JPanel fList = new JPanel();
+    private JDialog dialog = new JDialog();
+    
     private Object[] options = {"Torre 1", "Torre 2", "Torre 3"};
     
     
@@ -173,17 +176,8 @@ public class HanoiLoop {
             while(flag == true){
                 try{
                     String aux;
-                    /*T1 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Mover desde la torre: "));
-                    T2 = Integer.parseInt(JOptionPane.showInputDialog(null, fList + "\n\n\n Hasta la torre: "));
-                    */
                     
-                    /*aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Mover desde la torre: ", JOptionPane.INFORMATION_MESSAGE);
-                    if(aux == null){
-                        throw new NullPointerException();
-                    }
-                    t1 = Integer.parseInt(aux);
-                    */
-                    t1 = 1 + JOptionPane.showOptionDialog(null,
+                    t1 = 1 + JOptionPane.showOptionDialog(dialog,
                         fList,
                         "Mover desde la torre:",
                         JOptionPane.DEFAULT_OPTION,
@@ -191,16 +185,16 @@ public class HanoiLoop {
                         null,
                         options,
                         options[0]);
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    //dialog.setVisible(true);
                     
-                    
-                    /*aux = JOptionPane.showInputDialog(null, fList, "\n\n\n Hasta la torre: ", JOptionPane.INFORMATION_MESSAGE);
-                    if(aux == null){
+                    if(t1 == 0 || t1 == -1){
                         throw new NullPointerException();
                     }
-                    t2 = Integer.parseInt(aux);
-                    */
                     
-                    t2 = 1 + JOptionPane.showOptionDialog(null,
+                    
+                    
+                    t2 = 1 + JOptionPane.showOptionDialog(dialog,
                         fList,
                         "Mover Hasta la torre:",
                         JOptionPane.DEFAULT_OPTION,
@@ -208,6 +202,12 @@ public class HanoiLoop {
                         null,
                         options,
                         options[0]);
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    //dialog.setVisible(true);
+                    if(t2 == 0 || t2 == -1){
+                        throw new NullPointerException();
+                    }
+                    
                     
                     flag = false;
                     moves++;
