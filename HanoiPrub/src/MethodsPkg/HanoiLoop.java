@@ -12,24 +12,24 @@ import javax.swing.JTextArea;
  */
 public class HanoiLoop {
     private boolean exit;
-    private int discs, t1, t2; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
+    private int discs, t1, t2, moves; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
     private HStack[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
     //private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
     private JPanel fList = new JPanel();
-    //JTextArea[] textArea;
     
     
-        
+    
+    //CONSTRUCTOR    
     public HanoiLoop(){
         this.list = new String[3];
         this.exit = false;
         this.stack = new HStack[3];
-        
+        this.moves = 0;
         
         for(int i=0; i<3; i++){
             stack[i] = new HStack();
-            //textArea[i] = new JTextArea();
+            
         }
     }
     
@@ -84,6 +84,7 @@ public class HanoiLoop {
             if(stack[2].getSize() == discs){
                 frame();
                 JOptionPane.showMessageDialog(null, fList, "\n\n HAS GANADO, FELICITACIONES", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad de Movimientos: "+ moves);
                 exit=true;
             }
             
@@ -111,8 +112,8 @@ public class HanoiLoop {
                     list[i] += "-\n";
                 }
                 //añadirle el contenido de la pila
-                list[i] += stack[i].getContent();
-                
+                //list[i] += stack[i].getContent();
+                list[i] += stack[i].getFrameContent();
                 
             }
             JTextArea textArea = new JTextArea(list[i]);
@@ -133,7 +134,7 @@ public class HanoiLoop {
                 //ingresar cantidad de discos y verificar que no sean menores a 1 ni mayores a 8
                 do{
                 
-                    aux = JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: ");
+                    aux = JOptionPane.showInputDialog(null, "Ingrese la cantidad de discos: ", "Discos", JOptionPane.INFORMATION_MESSAGE);
 
 
 
@@ -184,6 +185,7 @@ public class HanoiLoop {
                     }
                     t2 = Integer.parseInt(aux);
                     
+                    moves++;
                     flag = false;
                 }
                 catch(NumberFormatException e){

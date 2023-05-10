@@ -4,7 +4,7 @@ public class HStack<T> {
     
     private HNode<T> lastValue;
     private int size;
-    String list;
+    String list, frameList;
     
     //Constructor
     public HStack(){
@@ -62,5 +62,24 @@ public class HStack<T> {
         }
         
         return list;
+    }
+    
+    public String getFrameContent(){
+        HNode<T> aux = lastValue;
+        frameList = "";
+        
+        
+        while(aux != null){
+            
+            String sAux = aux.getValue() + "";
+            for(int i = 0; i < Integer.parseInt(sAux); i++){
+                frameList += "*";
+            }
+            frameList += "\n";
+            
+            aux = aux.getNext();
+        }
+        
+        return frameList;
     }
 }
