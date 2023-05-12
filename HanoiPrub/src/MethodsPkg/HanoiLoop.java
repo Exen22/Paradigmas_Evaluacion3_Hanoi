@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
+import java.awt.Font;
 
 
 /**
@@ -123,6 +124,8 @@ public class HanoiLoop {
                 
             }
             JTextArea textArea = new JTextArea(list[i]);
+            //Font font = new Font("Serif", Font.PLAIN, 35);
+            //textArea.setFont(font);
             fList.add(textArea);
 
         }
@@ -130,9 +133,9 @@ public class HanoiLoop {
     
     //Establecer numero de discos
     private void setDiscs(){
-        boolean flag = true;
+        //boolean flag = true;
         
-        while(flag == true){
+        while(true){
             
             try{
                 
@@ -154,7 +157,7 @@ public class HanoiLoop {
                 }while(Integer.parseInt(aux) > 8 || Integer.parseInt(aux) < 1);
                 
                 discs = Integer.parseInt(aux);
-                flag = false;
+                break;
                 
             }
             catch(NumberFormatException e){
@@ -175,9 +178,9 @@ public class HanoiLoop {
     
     //Establecer las torres de donde se van a mover los discos
     private void setTowers(){
-        boolean flag = true;
+        //boolean flag = true;
             
-            while(flag == true){
+            while(true){
                 
                 //TORRE 1
                 try{
@@ -205,8 +208,9 @@ public class HanoiLoop {
                     
                     
                     
-                    flag = false;
+                   
                     moves++;
+                    break;
                 }
                 catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
@@ -217,17 +221,13 @@ public class HanoiLoop {
                     if (opc==JOptionPane.YES_OPTION){
                         System.exit(0);
                     }
-                    else{
-                        flag = true;
-                        continue;
-                    }
                 }
                 
             }
             
             //TORRE 2
-            flag = true;
-            while(flag == true){
+            
+            while(true){
                 try{
                     do{
                         t2 = 1 + JOptionPane.showOptionDialog(dialog,
@@ -252,7 +252,7 @@ public class HanoiLoop {
                         
                     }while(t1 == t2);
                     
-                    flag = false;
+                    break;
                 }
                 catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
@@ -282,3 +282,4 @@ public class HanoiLoop {
     }    
     
 }
+    
