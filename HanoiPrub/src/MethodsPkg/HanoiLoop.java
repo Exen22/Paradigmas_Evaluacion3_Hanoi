@@ -147,6 +147,10 @@ public class HanoiLoop {
                     if(aux == null){
                         throw new NullPointerException();
                     }
+                    
+                    if(Integer.parseInt(aux) > 8 || Integer.parseInt(aux) < 1){
+                        JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad de discos entre 1 y 8");
+                    }
                 }while(Integer.parseInt(aux) > 8 || Integer.parseInt(aux) < 1);
                 
                 discs = Integer.parseInt(aux);
@@ -178,21 +182,28 @@ public class HanoiLoop {
                 //TORRE 1
                 try{
                     String aux;
+                    do{
+                        t1 = 1 + JOptionPane.showOptionDialog(dialog,
+                            fList,
+                            "Mover desde la torre:",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                        
+                        //si le da a la X (salir)
+                        if(t1 == 0 || t1 == -1){
+                            throw new NullPointerException();
+                        }
+                        //si la torre seleccionada está vacia
+                        if(stack[t1-1].isEmpty()){
+                            JOptionPane.showMessageDialog(null, "TORRE VACIA, SELECCIONE OTRA");
+                        }
+                    }while(stack[t1-1].isEmpty());
                     
-                    t1 = 1 + JOptionPane.showOptionDialog(dialog,
-                        fList,
-                        "Mover desde la torre:",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
-                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                    //dialog.setVisible(true);
                     
-                    if(t1 == 0 || t1 == -1){
-                        throw new NullPointerException();
-                    }
                     
                     flag = false;
                     moves++;
@@ -218,19 +229,28 @@ public class HanoiLoop {
             flag = true;
             while(flag == true){
                 try{
-                    t2 = 1 + JOptionPane.showOptionDialog(dialog,
-                        fList,
-                        "Mover Hasta la torre:",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
-                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                    //dialog.setVisible(true);
-                    if(t2 == 0 || t2 == -1){
-                        throw new NullPointerException();
-                    }
+                    do{
+                        t2 = 1 + JOptionPane.showOptionDialog(dialog,
+                            fList,
+                            "Mover Hasta la torre:",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                        
+                        //si le da a la X (salir)
+                        if(t2 == 0 || t2 == -1){
+                            throw new NullPointerException();
+                        }
+                        
+                        //si selecciona la misma torre de origen
+                        if(t1 == t2){
+                            JOptionPane.showMessageDialog(null, "NO PUEDES SELECCIONAR LA MISMA TORRE DE ORIGEN");
+                        }
+                        
+                    }while(t1 == t2);
                     
                     flag = false;
                 }
