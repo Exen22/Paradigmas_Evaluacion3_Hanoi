@@ -42,16 +42,11 @@ public class HanoiLoop {
     //BUCLE PRINCIPAL DEL JUEGO
     public void game(){
         
-        
         //ESTABLECER CANTIDAD DE DISCOS
         setDiscs();
         
         //LLENAR LA PRIMERA PILA CON LOS DISCOS
-        /*for(int i=0; i<discs; i++){
-            stack[0].push(discs-i);
-        }*/
         retry();
-        
         
         //BUCLE PRINCIPAL (AQUI VA CADA FRAME DEL JUEGO)
         do{
@@ -59,10 +54,8 @@ public class HanoiLoop {
             frame();
             
             //PEDIR DATOS PARA EL PROCESO Y A LA VEZ MOSTRAR CON EL JOptionPane LOS FRAMES (fList)
-            
-                setTower1();
-                setTower2();
-            
+            setTower1();
+            setTower2();
             
             //PROCESO
             if (t1<1 || t1>3 || t2<1 || t2>3){
@@ -109,7 +102,6 @@ public class HanoiLoop {
         fList.removeAll();
         fList.setLayout(new BoxLayout(fList, BoxLayout.X_AXIS));
         
-        
         for(int i = 0; i < 3; i++){    
             list[i] = "-\n";
         }
@@ -140,17 +132,13 @@ public class HanoiLoop {
     //Establecer numero de discos
     private void setDiscs(){
         //boolean flag = true;
-        
         while(true){
-            
             try{
-                
                 String aux;   
                 //ingresar cantidad de discos y verificar que no sean menores a 1 ni mayores a 8
                 do{
                 
-                    aux = JOptionPane.showInputDialog(null, "BIENVENIDO AL JUEGO 'TORRES DE HANOI' "
-                            + "\n\nPor favor Ingrese la cantidad de discos: ", "Discos", JOptionPane.INFORMATION_MESSAGE);
+                    aux = JOptionPane.showInputDialog(null, "Por favor Ingrese la cantidad de discos: ", "Discos", JOptionPane.INFORMATION_MESSAGE);
 
 
 
@@ -165,7 +153,6 @@ public class HanoiLoop {
                 
                 discs = Integer.parseInt(aux);
                 break;
-                
             }
             catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
@@ -176,11 +163,9 @@ public class HanoiLoop {
 
                 if (opc==JOptionPane.YES_OPTION){
                     System.exit(0);
-                }
-                    
+                } 
             }
-        }
-        
+        } 
     }
     
     //Establecer las torres de donde se van a mover los discos
@@ -191,7 +176,6 @@ public class HanoiLoop {
                 
                 //TORRE 1
                 try{
-                    String aux;
                     boolean exit2 = false;
                     do{
                         t1 = 1 + JOptionPane.showOptionDialog(dialog,
@@ -253,74 +237,75 @@ public class HanoiLoop {
             }
     }
     
-    public void setTower2(){
+    private void setTower2(){
         //TORRE 2
-            
-            while(true){
-                try{
-                    do{
-                        t2 = 1 + JOptionPane.showOptionDialog(dialog,
-                            fList,
-                            "Mover Hasta la torre:",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.PLAIN_MESSAGE,
-                            null,
-                            options,
-                            options[0]);
-                        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                        
-                        if(t2 != 4){
-                            //si le da a la X (salir)
-                            if(t2 == 0 /*|| t2 == -1*/){
-                                throw new NullPointerException();
-                            }
+        while(true){
+            try{
+                do{
+                    t2 = 1 + JOptionPane.showOptionDialog(dialog,
+                        fList,
+                        "Mover Hasta la torre:",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    
+                    //si no se ha presionado el boton de reincio (4)
+                    if(t2 != 4){
+                        //si le da a la X (salir)
+                        if(t2 == 0 /*|| t2 == -1*/){
+                            throw new NullPointerException();
+                        }
 
-                            //si selecciona la misma torre de origen
-                            if(t1 == t2){
-                                //JOptionPane.showMessageDialog(null, "NO PUEDES SELECCIONAR LA MISMA TORRE DE ORIGEN");
-                                throw new cancel();
-                            }
+                        //si selecciona la misma torre de origen
+                        if(t1 == t2){
+                            //JOptionPane.showMessageDialog(null, "NO PUEDES SELECCIONAR LA MISMA TORRE DE ORIGEN");
+                            throw new cancel();
+                        }
+                    }
+                    //si se presiona el boton de reinicio (4)
+                    else{
+                        int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de reiniciar el juego?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                        if (opc==JOptionPane.YES_OPTION){
+                            throw new retryGame();
                         }
                         else{
-                            int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de reiniciar el juego?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-                    
-                            if (opc==JOptionPane.YES_OPTION){
-                                throw new retryGame();
-                            }
-                            else{
-                                t2 = t1;
-                            }
+                            t2 = t1;
                         }
-                    }while(t1 == t2);
-                    
-                    break;
-                }
-                catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
-                }
-                catch(NullPointerException e){
-                    int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-                    
-                    if (opc==JOptionPane.YES_OPTION){
-                        System.exit(0);
                     }
-                }
-                catch(retryGame e){
-                    retry();
-                    t2 = 0;
-                    t1 = 0;
-                    setTower1();
-                    setTower2();
-                    break;
-                }
-                catch(cancel e){
-                    setTower1();
-                    setTower2();
-                    moves--;
-                    break;
-                }
-                
+                }while(t1 == t2);
+
+                break;
             }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ha ingresado un valor invalido");
+            }
+            catch(NullPointerException e){
+                int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (opc==JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }
+            catch(retryGame e){
+                retry();
+                t2 = 0;
+                t1 = 0;
+                setTower1();
+                setTower2();
+                break;
+            }
+            catch(cancel e){
+                setTower1();
+                setTower2();
+                moves--;
+                break;
+            }
+
+        }
     }
     
     //Metodo para llenar una list[] con guiones ("-") si está vacia
@@ -334,6 +319,20 @@ public class HanoiLoop {
         list += "\n";
         return list;
     }    
+    
+    //reiniciar el juego
+    private void retry(){
+        
+        for(int i = 0; i<3; i++){
+            stack[i].popAll();
+        }
+        
+        for(int i=0; i<discs; i++){
+            stack[0].push(discs-i);
+        }
+        moves = 0;
+        frame();
+    }
     
     //Exception propia
     private class retryGame extends Exception{
@@ -349,19 +348,7 @@ public class HanoiLoop {
             super("cancel");
         }
     }
-    //reiniciar el juego
-    private void retry(){
-        
-        for(int i = 0; i<3; i++){
-            stack[i].popAll();
-        }
-        
-        for(int i=0; i<discs; i++){
-            stack[0].push(discs-i);
-        }
-        moves = 0;
-        frame();
-    }
+    
     
 }
     
