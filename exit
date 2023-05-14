@@ -1,0 +1,89 @@
+[33mcommit 5f6f4d1d51adde9d824c6db25b366190a42a9cbb[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Jose Flores <j2005.flores@gmail.com>
+Date:   Fri May 12 12:31:12 2023 -0400
+
+    juan
+
+[33mcommit a6a166fd492dfce5437772abc370850e945ce94e[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Sat May 13 02:04:19 2023 -0400
+
+    Añadida validacion (no seleccionar la torre de destino como la misma torre de origen)
+
+[33mcommit 5578766fb624c998305462b072f9557eca2b8949[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 22:45:53 2023 -0400
+
+    V2.1, validacion (no se repite al presionar 'x')
+
+[33mcommit 11a0ad96db03ed4d40daa6110e441d0e8efc1b5e[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 22:32:20 2023 -0400
+
+    V2.0
+
+[33mcommit 2f01f3d7b62fcbd1393ddccd14dfa34a3a744133[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 22:16:01 2023 -0400
+
+    Agregada la validacion a los botones
+
+[33mcommit a29a9611234a944fcf6d1dcc6b9638dd25201e7f[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 22:03:15 2023 -0400
+
+    Agregados botones para la seleccion de la torre con el showOptionDialog en el metodo setTowers
+
+[33mcommit ba5184cddf48a46f57ee4774eab37184cf6110bc[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 20:16:46 2023 -0400
+
+    modificado el metodo frame, ahora discos son representados con '*'. Añadido contador de movimientos
+
+[33mcommit c95b7753a12b6961baf3d0ba08d5ce8692d99518[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 19:32:38 2023 -0400
+
+    Añadida validacion para cantidad de discos
+
+[33mcommit 153008b24b0f1f2bf483ce5ccede34446453a033[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 19:18:42 2023 -0400
+
+    añadida opcion para repetir el juego
+
+[33mcommit a3fc4ab07779e40834a9ba509e9981c7e4a518bb[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 9 19:11:20 2023 -0400
+
+    Nuevo metodo frame, pilas mostradas una al lado de la otra
+
+[33mcommit e17161529ecb2cdb3ab80dd0686729f925ed7cb5[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 2 21:59:29 2023 -0400
+
+    V2.0 Agregada validacion y se ha terminado de organizar los metodos y clases
+
+[33mcommit 5860c18f5dc73500531fc07e13f53372b308b0f5[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 2 20:59:14 2023 -0400
+
+    V1.5 Se han organizado las clases y metodos, haciendo el codigo más legible
+
+[33mcommit 537e868ed93fd31b650d7ad7412a3790e3ef85b0[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 2 01:38:43 2023 -0400
+
+    BASE v1.0
+
+[33mcommit 04cdb8cc270d2d121efb29023b14b4d259f21e35[m
+Author: Willian Coral <coralw2210@gmail.com>
+Date:   Tue May 2 01:21:53 2023 -0400
+
+    BASE
+
+[33mcommit a6e211d9a2f849c08f67463d7bcb34e38314a703[m
+Author: Exen22 <115383480+Exen22@users.noreply.github.com>
+Date:   Mon May 1 18:11:01 2023 -0400
+
+    Initial commit
