@@ -73,7 +73,7 @@ public class HStack<T> {
             
             String sAux = aux.getValue() + "";
             for(int i = 0; i < Integer.parseInt(sAux); i++){
-                frameList += "*";
+                frameList += "*"; //aqui se le puede poner tambien un | pa que se vea un poquito mejor
             }
             frameList += "\n";
             
