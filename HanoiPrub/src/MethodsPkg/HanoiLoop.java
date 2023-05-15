@@ -7,20 +7,15 @@ import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-
-/**
- *
- * @author Willian Coral
- */
 public class HanoiLoop {
     private boolean exit;
     private int discs, t1, t2, moves; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
-    private HStack[] stack; //Pilas (torres) donde van a estar los discos
+    private HStack<Integer>[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
     private JPanel fList = new JPanel(); //Panel-lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
     private JDialog dialog = new JDialog();
     
-    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "Reiniciar"}; //BOTONES
+    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "Reiniciar","Resolver"}; //BOTONES
     
     
     //CONSTRUCTOR    
@@ -123,7 +118,7 @@ public class HanoiLoop {
                 
             }
             JTextArea textArea = new JTextArea(list[i]);
-            Font font = new Font("Serif", Font.PLAIN, 20);
+            Font font = new Font("Serif", Font.PLAIN, 22);
             textArea.setFont(font);
             fList.add(textArea);
             
@@ -190,7 +185,7 @@ public class HanoiLoop {
                         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                         
                         if(t1 != 4){
-                        
+                            if(t1 == 5) throw new resolve();
                             //si le da a la X (salir)
                             if(t1 == 0 /*|| t1 == -1*/){
                                 throw new NullPointerException();
@@ -201,6 +196,8 @@ public class HanoiLoop {
                             }
                             
                             if(!stack[t1-1].isEmpty()) exit2 = true;
+                            
+                            
                         }
                         else{
                             int opc =JOptionPane.showConfirmDialog(null,"Esta seguro de reiniciar el juego?", "Confirmacion", JOptionPane.YES_NO_OPTION);
@@ -234,6 +231,10 @@ public class HanoiLoop {
                     t1 = 0;
                     
                 }
+                catch(resolve e){
+                    ReHanoi auto = new ReHanoi();
+                    auto.execute();
+                }
                 
             }
     }
@@ -265,6 +266,9 @@ public class HanoiLoop {
                             //JOptionPane.showMessageDialog(null, "NO PUEDES SELECCIONAR LA MISMA TORRE DE ORIGEN");
                             throw new cancel();
                         }
+                        
+                        if(t2 == 5)
+                            throw new resolve();
                     }
                     //si se presiona el boton de reinicio (4)
                     else{
@@ -305,7 +309,10 @@ public class HanoiLoop {
                 moves--;
                 break;
             }
-
+            catch(resolve e){
+                ReHanoi auto = new ReHanoi();
+                auto.execute();
+            }
         }
     }
     
@@ -351,6 +358,79 @@ public class HanoiLoop {
         }
     }
     
+    //Exception propia
+    private class resolve extends Exception{
+        
+        public resolve(){
+            super("resolve");
+        }
+    }
     
+    //clase extendida de la principal usada para realizar polimorfismo en el metodo reboot
+    // Y para resolver el problema de forma automatica
+    private class ReHanoi extends HanoiLoop{
+       
+        private final String[] options = {"Siguiente", "Salir"}; //BOTONES
+        
+        public void execute(){
+            reboot();
+            reHanoi(discs,stack,0,2,1);
+            JOptionPane.showMessageDialog(null, "Cantidad de Movimientos: "+ moves+"\n\n"
+                        + "Cantidad de movimientos minimos posibles: "+(int)(Math.pow(2, discs)-1)); //formula: (2^discs)-1
+            exit=true;
+        }
+        
+        private void show(){
+           int op = 1 + JOptionPane.showOptionDialog(dialog,
+                            fList,
+                            "VER PASOS",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        }
+        
+        //reiniciar el juego
+        private void reboot(){
+            //setDiscs();
+        
+            for(int i = 0; i<3; i++){
+                stack[i].popAll();
+            }
+        
+            for(int i=0; i<discs; i++){
+                stack[0].push(discs-i);
+            }
+            moves = 0;
+            frame();
+        }
+    
+        private void reHanoi(int n, HStack<Integer>[] towers, int fromTower, int toTower, int auxTower) {
+            if (n == 1) {
+                // Mover el disco de la torre de origen a la torre de destino
+                int disk = towers[fromTower].pop();
+                towers[toTower].push(disk);
+
+                // Mostrar las torres después de mover el disco
+                frame();
+                show();
+            } else {
+                // Mover n-1 discos de la torre de origen a la torre auxiliar
+                reHanoi(n-1, towers, fromTower, auxTower, toTower);
+
+                // Mover el disco restante de la torre de origen a la torre de destino
+                int disk = towers[fromTower].pop();
+                towers[toTower].push(disk);
+
+                // Mostrar las torres después de mover el disco
+                frame();
+                show();
+                // Mover los n-1 discos de la torre auxiliar a la torre de destino
+                reHanoi(n-1, towers, auxTower, toTower, fromTower);
+            }
+        }
+    }
 }
     
