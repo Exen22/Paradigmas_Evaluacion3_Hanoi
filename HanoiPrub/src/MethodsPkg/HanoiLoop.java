@@ -376,17 +376,23 @@ public class HanoiLoop {
     private class ReHanoi extends HanoiLoop{
        
         private final String[] options = {"Siguiente", "Salir"}; //BOTONES
-        
+        private int op;
         public void execute(){
             reboot();
+            show();
             reHanoi(discs,stack,0,2,1);
+            if(op != 4){
             JOptionPane.showMessageDialog(null, "Cantidad de Movimientos: "+ moves+"\n\n"
-                        + "Cantidad de movimientos minimos posibles: "+(int)(Math.pow(2, discs)-1)); //formula: (2^discs)-1
+                        + "Cantidad de movimientos minimos posibles: "+(int)(Math.pow(2, discs)-1));//formula: (2^discs)-1
+            }
             exit=true;
         }
         
         private void show(){
-           int op = 1 + JOptionPane.showOptionDialog(dialog,
+            while(true){
+                try{
+                
+                    op = 1 + JOptionPane.showOptionDialog(dialog,
                             fList,
                             "VER PASOS",
                             JOptionPane.DEFAULT_OPTION,
@@ -395,6 +401,30 @@ public class HanoiLoop {
                             options,
                             options[0]);
                         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                        
+                    //si presiona la x o presiona salir
+                    if(op == 0 || op == 2){
+                        //validamos si la torre destino esta llena para que al presionar salir solo muestre el final
+                        if(stack[2].getSize() != discs)
+                            throw new NullPointerException();
+                        else break; //rompemos bucle cuando este llena para salir al final
+                    }
+                    
+                    //rompemos bucle si presiona siguiente
+                    if(op == 1)break;
+                } catch(NullPointerException e){
+                    int opc =JOptionPane.showConfirmDialog(null,"Esta seguro que quiere dejar de ver los pasos?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                    if (opc==JOptionPane.YES_OPTION){
+                        opc = JOptionPane.showConfirmDialog(null,"Quiere salir del programa?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+                    
+                        if(opc==JOptionPane.YES_OPTION) System.exit(0);
+                        else op = 4;
+                        
+                        break;//rompemos bucle si cancela la salida
+                    }
+                }
+            }      
         }
         
         //reiniciar el juego
@@ -420,7 +450,7 @@ public class HanoiLoop {
                 moves++;
                 // Mostrar las torres después de mover el disco
                 frame();
-                show();
+                if(op != 4)show();//Si el usuario decide salir (op = 4) no se muestra nada
             } else {
                 // Mover n-1 discos de la torre de origen a la torre auxiliar
                 reHanoi(n-1, towers, fromTower, auxTower, toTower);
@@ -431,7 +461,7 @@ public class HanoiLoop {
 
                 // Mostrar las torres después de mover el disco
                 frame();
-                show();
+                if(op != 4)show();
                 // Mover los n-1 discos de la torre auxiliar a la torre de destino
                 reHanoi(n-1, towers, auxTower, toTower, fromTower);
             }
