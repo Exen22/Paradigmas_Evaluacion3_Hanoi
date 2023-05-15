@@ -14,14 +14,13 @@ import java.awt.Font;
  */
 public class HanoiLoop {
     private boolean exit;
-    private int discs, t1, t2, moves=0; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
+    private int discs, t1, t2, moves; //Numero de discos // T1 es la torre que envia el disco y T2 la que lo recibe
     private HStack[] stack; //Pilas (torres) donde van a estar los discos
     private String[] list; //donde se van a guardar los datos de cada pila por separado
-    //private String fList; //lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
-    private JPanel fList = new JPanel();
+    private JPanel fList = new JPanel(); //Panel-lista donde se van a guardar los datos de las 3 pilas para mostrarlo por pantalla
     private JDialog dialog = new JDialog();
     
-    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "Reiniciar"};
+    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "Reiniciar"}; //BOTONES
     
     
     //CONSTRUCTOR    
@@ -31,6 +30,7 @@ public class HanoiLoop {
         this.stack = new HStack[3];
         this.t1 = 0;
         this.t2 = 0;
+        this.moves = 0;
         //this.moves = 0;
         
         for(int i=0; i<3; i++){
@@ -181,7 +181,7 @@ public class HanoiLoop {
                     do{
                         t1 = 1 + JOptionPane.showOptionDialog(dialog,
                             fList,
-                            "Mover desde la torre:",
+                            "SELECCIONE TORRE ORIGEN:",
                             JOptionPane.DEFAULT_OPTION,
                             JOptionPane.PLAIN_MESSAGE,
                             null,
@@ -245,7 +245,7 @@ public class HanoiLoop {
                 do{
                     t2 = 1 + JOptionPane.showOptionDialog(dialog,
                         fList,
-                        "Mover Hasta la torre:",
+                        "SELECCIONE TORRE DE DESTINO:",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.PLAIN_MESSAGE,
                         null,
