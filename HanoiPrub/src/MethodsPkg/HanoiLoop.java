@@ -49,9 +49,9 @@ public class HanoiLoop {
             frame();
             
             //PEDIR DATOS PARA EL PROCESO Y A LA VEZ MOSTRAR CON EL JOptionPane LOS FRAMES (fList)
-            setTower1();
-            setTower2();
-            
+            int aux = setTower1();
+            if(aux == 0) aux = setTower2();
+            if(aux != 0)break;
             //PROCESO
             if (t1<1 || t1>3 || t2<1 || t2>3){
                 JOptionPane.showMessageDialog(null, "MOVIMIENTO INVALIDO");
@@ -165,7 +165,7 @@ public class HanoiLoop {
     }
     
     //Establecer las torres de donde se van a mover los discos
-    private void setTower1(){
+    private int setTower1(){
         //boolean flag = true;
             
             while(true){
@@ -234,12 +234,15 @@ public class HanoiLoop {
                 catch(resolve e){
                     ReHanoi auto = new ReHanoi();
                     auto.execute();
+                    return 1;
+                    
                 }
                 
             }
+            return 0;
     }
     
-    private void setTower2(){
+    private int setTower2(){
         //TORRE 2
         while(true){
             try{
@@ -312,8 +315,10 @@ public class HanoiLoop {
             catch(resolve e){
                 ReHanoi auto = new ReHanoi();
                 auto.execute();
+                return 1;
             }
         }
+        return 0;
     }
     
     //Metodo para llenar una list[] con guiones ("-") si está vacia
@@ -412,14 +417,14 @@ public class HanoiLoop {
                 // Mover el disco de la torre de origen a la torre de destino
                 int disk = towers[fromTower].pop();
                 towers[toTower].push(disk);
-
+                moves++;
                 // Mostrar las torres después de mover el disco
                 frame();
                 show();
             } else {
                 // Mover n-1 discos de la torre de origen a la torre auxiliar
                 reHanoi(n-1, towers, fromTower, auxTower, toTower);
-
+                moves++;
                 // Mover el disco restante de la torre de origen a la torre de destino
                 int disk = towers[fromTower].pop();
                 towers[toTower].push(disk);
