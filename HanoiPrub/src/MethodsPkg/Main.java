@@ -7,8 +7,9 @@ import javax.swing.JOptionPane;
 
 Jose Flores C.I: 31.197.661
 Willian Coral C.I: 31.296.612
-Carlos Andrade C.I:
+Carlos Andrade C.I: 30.629.071
 José García C.I: 
+
  */
 public class Main {
     public static void main(String[] args){

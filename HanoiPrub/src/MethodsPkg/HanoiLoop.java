@@ -323,12 +323,15 @@ public class HanoiLoop {
     
     //reiniciar el juego
     private void reboot(){
+        //establecer cantidad de discos
         setDiscs();
         
+        //vaciar las pilas
         for(int i = 0; i<3; i++){
             stack[i].popAll();
         }
         
+        //llenar primera pila con discos
         for(int i=0; i<discs; i++){
             stack[0].push(discs-i);
         }
