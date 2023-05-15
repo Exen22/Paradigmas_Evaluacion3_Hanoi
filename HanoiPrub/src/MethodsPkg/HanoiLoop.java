@@ -21,7 +21,7 @@ public class HanoiLoop {
     private JPanel fList = new JPanel();
     private JDialog dialog = new JDialog();
     
-    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "retry"};
+    private String[] options = {"Torre 1", "Torre 2", "Torre 3", "Reiniciar"};
     
     
     //CONSTRUCTOR    
@@ -43,10 +43,10 @@ public class HanoiLoop {
     public void game(){
         
         //ESTABLECER CANTIDAD DE DISCOS
-        setDiscs();
+        //setDiscs();
         
         //LLENAR LA PRIMERA PILA CON LOS DISCOS
-        retry();
+        reboot();
         
         //BUCLE PRINCIPAL (AQUI VA CADA FRAME DEL JUEGO)
         do{
@@ -89,8 +89,9 @@ public class HanoiLoop {
             //condicion de salida 3era pila llena
             if(stack[2].getSize() == discs){
                 frame();
-                JOptionPane.showMessageDialog(null, fList, "\n\n HAS GANADO, FELICITACIONES", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(null, "Cantidad de Movimientos: "+ moves);
+                JOptionPane.showMessageDialog(null, fList, "\n\n HAS LOGRADO RESOLVERLO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cantidad de Movimientos: "+ moves+"\n\n"
+                        + "Cantidad de movimientos minimos posibles: "+(int)(Math.pow(2, discs)-1)); //formula: (2^discs)-1
                 exit=true;
             }
             
@@ -103,7 +104,7 @@ public class HanoiLoop {
         fList.setLayout(new BoxLayout(fList, BoxLayout.X_AXIS));
         
         for(int i = 0; i < 3; i++){    
-            list[i] = "-\n";
+            list[i] = "||\n";
         }
 
         for(int i = 0; i < 3; i++){
@@ -114,7 +115,7 @@ public class HanoiLoop {
             else{
                 //PONER LOS GUIONES "-" A LAS PILAS 
                 for(int j = stack[i].getSize(); j<discs; j++){
-                    list[i] += "-\n";
+                    list[i] += "||\n";
                 }
                 //añadirle el contenido de la pila
                 //list[i] += stack[i].getContent();
@@ -125,7 +126,7 @@ public class HanoiLoop {
             Font font = new Font("Serif", Font.PLAIN, 20);
             textArea.setFont(font);
             fList.add(textArea);
-
+            
         }
     }
     
@@ -228,7 +229,7 @@ public class HanoiLoop {
                     }
                 }
                 catch(retryGame e){
-                    retry();
+                    reboot();
                     t2 = 0;
                     t1 = 0;
                     
@@ -291,7 +292,7 @@ public class HanoiLoop {
                 }
             }
             catch(retryGame e){
-                retry();
+                reboot();
                 t2 = 0;
                 t1 = 0;
                 setTower1();
@@ -314,14 +315,15 @@ public class HanoiLoop {
                 if(i!=0){
                     list += "\n";
                 }
-                list += "-";
+                list += "||";
             }
         list += "\n";
         return list;
     }    
     
     //reiniciar el juego
-    private void retry(){
+    private void reboot(){
+        setDiscs();
         
         for(int i = 0; i<3; i++){
             stack[i].popAll();
