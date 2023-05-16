@@ -183,9 +183,19 @@ public class HanoiLoop {
                             options,
                             options[0]);
                         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                        
-                        if(t1 != 4){
-                            if(t1 == 5) throw new resolve();
+                        if(t1 == 5){
+                            int opc =JOptionPane.showConfirmDialog(null,"Esta seguro que desea resolver el juego?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                            if (opc==JOptionPane.YES_OPTION){
+                                throw new resolve();
+                            }
+                            else{
+                                exit2 = false;
+                            }
+                            //throw new resolve();
+                        }
+                        else if(t1 != 4){
+                            
                             //si le da a la X (salir)
                             if(t1 == 0 /*|| t1 == -1*/){
                                 throw new NullPointerException();
@@ -270,8 +280,18 @@ public class HanoiLoop {
                             throw new cancel();
                         }
                         
-                        if(t2 == 5)
-                            throw new resolve();
+                        //si presiona el boton de resolver
+                        if(t2 == 5){
+                            int opc =JOptionPane.showConfirmDialog(null,"Esta seguro que desea resolver el juego?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                            if (opc==JOptionPane.YES_OPTION){
+                                throw new resolve();
+                            }
+                            else{
+                                t2 = t1;
+                            }
+                            //throw new resolve();
+                        }
                     }
                     //si se presiona el boton de reinicio (4)
                     else{
